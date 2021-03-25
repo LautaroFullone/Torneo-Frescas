@@ -1,6 +1,9 @@
 package Clases;
+import Interfaces.IHabilidadEspecial;
 import Interfaces.IOrinar;
 import Interfaces.IBeber;
+
+import java.util.Random;
 
 public abstract class Humano {
     private String nombre;
@@ -8,17 +11,32 @@ public abstract class Humano {
     private int peso;
     private IBeber beber;
     private IOrinar orinar;
+    private IHabilidadEspecial habilidadEspecial;
+    protected int limite;
+
 
     public Humano(){
 
     }
 
-    public Humano(String nombre, int edad, int peso, IOrinar orinar, IBeber beber) {
+    public Humano(String nombre, int edad, int peso, IOrinar orinar, IBeber beber, IHabilidadEspecial habilidadEspecial) {
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.orinar = orinar;
         this.beber = beber;
+        this.habilidadEspecial = habilidadEspecial;
+        this.limite = new Random().nextInt(15-1)+1;
+    }
+
+    public void beber(){
+        beber.beber();
+    }
+    public void orinar(){
+        orinar.orinar();
+    }
+    public void habilidadEspecial(){
+        habilidadEspecial.activarHabilidadEspecial();
     }
 
     public String getNombre() {
@@ -27,6 +45,14 @@ public abstract class Humano {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
     }
 
     public Integer getEdad() {
@@ -71,4 +97,6 @@ public abstract class Humano {
                 ", orinar=" + orinar +
                 '}';
     }
+
+
 }

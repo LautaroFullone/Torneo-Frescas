@@ -1,12 +1,13 @@
 package Clases;
+import Interfaces.IHabilidadEspecial;
 import Interfaces.IOrinar;
 import Interfaces.IBeber;
 
 public class Vikingo extends Humano{
     private int bebedorProfesional;
 
-    public Vikingo(String nombre, int edad, int peso, IOrinar orinar, IBeber beber, int bebedorProfesional) {
-        super(nombre, edad, peso, orinar, beber);
+    public Vikingo(String nombre, int edad, int peso, IOrinar orinar, IBeber beber, IHabilidadEspecial habilidad, int bebedorProfesional) {
+        super(nombre, edad, peso, orinar, beber, habilidad);
         this.bebedorProfesional = bebedorProfesional;
     }
 
@@ -24,4 +25,7 @@ public class Vikingo extends Humano{
                 "bebedorProfesional=" + bebedorProfesional +
                 '}';
     }
+
+
+
 }
