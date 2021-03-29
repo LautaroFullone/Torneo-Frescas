@@ -1,5 +1,6 @@
 import Clases.*;
 import Implementaciones.*;
+import com.sun.security.jgss.GSSUtil;
 
 
 import java.util.ArrayList;
@@ -36,13 +37,13 @@ public class Main {
         persona2.habilidadEspecial();
 
         int limite1 = persona1.getLimite();
-        int limite2 = persona1.getLimite();
+        int limite2 = persona2.getLimite();
 
         int rondas = limite1 +limite2;
         boolean seguir = true; int i=0;
         System.out.println("\n\n\n-----------Empieza el Combate de " + rondas +" rondas -----------");
 
-        while (i <= rondas && seguir ){
+      while (i <= rondas && seguir ){
             System.out.println("--> RONDA " + (i+1) + " <--");
             persona1.beber();
             limite1--;
@@ -68,18 +69,16 @@ public class Main {
         if(limite2==0 && limite1>0){
             ganador= persona1;
         }
-        if(limite2==0 && limite1==0 ){
-            if(persona1 instanceof Vikingo)
-                System.out.println("\033[32m EMPATE ,por llevar sangre Vikinga y porque la taberna fue construida por Vikingos ...  ");
-            if(persona1 instanceof Espartano)
-                System.out.println("\033[32m EMPATE ,por llevar sangre Espartana y porque la taberna fue construida por Espartanos ...  ");
+        if(limite2==0 && limite1==0 ) {
+            if (persona1 instanceof Vikingo)
+                System.out.println("\033[32mEMPATE ,por llevar sangre Vikinga y porque la taberna fue construida por Vikingos ...  ");
+            if (persona1 instanceof Espartano)
+                System.out.println("\033[32mEMPATE ,por llevar sangre Espartana y porque la taberna fue construida por Espartanos ...  ");
 
-            ganador= persona1;
+            ganador = persona1;
         }
 
-        System.out.println("\033[32m Ganador "+ ganador.getNombre() + " el "+  ganador.getClass().getSimpleName() + " \u001B[0m");
-        System.out.println("Total de rondas -> "+i);
-        System.out.println("-----------Termina el  Combate -----------");
+        System.out.println("\033[32mThe WINNER is "+ ganador.getNombre()+ "!!!!!!!! \u001B[0m");
         return ganador;
     }
 }
