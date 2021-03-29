@@ -29,14 +29,15 @@ public abstract class Humano {
         this.limite = new Random().nextInt(15-1)+1;
     }
 
+    public void habilidadEspecial() {
+        habilidadEspecial.activarHabilidadEspecial(this);
+    }
+
     public void beber(){
         beber.beber();
     }
     public void orinar(){
         orinar.orinar();
-    }
-    public void habilidadEspecial(){
-        habilidadEspecial.activarHabilidadEspecial();
     }
 
     public String getNombre() {
@@ -97,6 +98,7 @@ public abstract class Humano {
                 ", orinar=" + orinar +
                 '}';
     }
+
 
 
 }

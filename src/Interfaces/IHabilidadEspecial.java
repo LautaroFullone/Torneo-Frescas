@@ -1,5 +1,7 @@
 package Interfaces;
 
+import Clases.Humano;
+
 public interface IHabilidadEspecial {
-    public void activarHabilidadEspecial();
+    public void activarHabilidadEspecial(Humano humano);
 }

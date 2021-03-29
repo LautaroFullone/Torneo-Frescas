@@ -1,10 +1,6 @@
-import Clases.Espartano;
-import Clases.Humano;
-import Clases.Vikingo;
-import Implementaciones.BeberEspartanoImp;
-import Implementaciones.BeberVikingoImp;
-import Implementaciones.OrinarEspartanoImp;
-import Implementaciones.OrinarVikingoImp;
+import Clases.*;
+import Implementaciones.*;
+
 
 import java.util.ArrayList;
 
@@ -15,76 +11,76 @@ public class Main {
         ArrayList<Humano>vikingos= new ArrayList<Humano>();
         ArrayList<Humano>espartanos= new ArrayList<Humano>();
 
-        Humano valentina = new Vikingo("Valentina", 18, 60, new OrinarVikingoImp(), new BeberVikingoImp(), 1);
-        Humano mirta = new Vikingo("Mirta", 58, 65, new OrinarVikingoImp(), new BeberVikingoImp(), 0);
-
+        Humano valentina = new Vikingo("Valentina", 18, 60, new OrinarVikingoImp(), new BeberVikingoImp(), new HabilidadEspecialVikingo(), 1);
         vikingos.add(valentina);
+        Humano mirta = new Vikingo("Mirta", 58, 65, new OrinarVikingoImp(), new BeberVikingoImp(),new HabilidadEspecialVikingo(), 0);
         vikingos.add(mirta);
 
-
-        Humano kevin = new Espartano("Kevin", 20, 70, new OrinarEspartanoImp(), new BeberEspartanoImp(), 2);
-        Humano luis = new Espartano("Luis", 61, 82, new OrinarEspartanoImp(), new BeberEspartanoImp(), 15);
-        luis.beber();
+        Humano kevin = new Espartano("Kevin", 20, 70, new OrinarEspartanoImp(), new BeberEspartanoImp(),new HabilidadEspecialEspartano(), 2);
         espartanos.add(kevin);
+        Humano luis = new Espartano("Luis", 61, 82, new OrinarEspartanoImp(), new BeberEspartanoImp(),new HabilidadEspecialEspartano(), 25);
         espartanos.add(luis);
 
+        Humano ganador = competir(mirta, luis);
+
     }
-}
+
 
     public static Humano competir(Humano persona1,Humano persona2){
         Humano ganador=null ;
 
         //Habilidades especiales
         System.out.println("El combate esta por empezar \nActivando  Habilidades especiales ");
-persona1 = new Vikingo();
-        persona1.activarHabilidadEspecial();
-        persona2.activarHabilidadEspecial();
 
-        int limiteV = v.getLimiteV();
-        int limiteE = e.getLimiteE();
-        int rondas = limiteV + limiteE;
+        persona1.habilidadEspecial();
+        persona2.habilidadEspecial();
 
+        int limite1 = persona1.getLimite();
+        int limite2 = persona1.getLimite();
+
+        int rondas = limite1 +limite2;
+        boolean seguir = true; int i=0;
         System.out.println("\n\n\n-----------Empieza el Combate de " + rondas +" rondas -----------");
-        for (int i =0 ; i <  rondas; i++){
 
+        while (i <= rondas && seguir ){
+            System.out.println("--> RONDA " + (i+1) + " <--");
+            persona1.beber();
+            limite1--;
 
-            System.out.println("--> RONDA "+(i+1)+" <--");
-            vik.beber();
-            limiteV--;
-
-            esp.beber();
-            limiteE--;
+            persona2.beber();
+            limite2--;
 
             // Cuando llegan al limite van a Orinar
-            if(limiteV == 0){
-                v.orinar();
+            if(limite1 == 0){
+                persona1.orinar();
+                seguir = false;
             }
-            if(limiteE == 0){
-                e.orinar();
+            if(limite2 == 0){
+                persona2.orinar();
+                seguir = false;
             }
-            //verifico quien gano
-            if (limiteV == 0 && limiteE >0){
-                rondas = i+1;
-                ganador = e;
-                break;
-            }
-            if(limiteE == 0 && limiteV >0){
-                rondas = i+1;
-                ganador= v;
-                break;
-            }
-            if(limiteE ==0 && limiteV==0 ){
-                System.out.println("\033[32m EMPATE ,por llevar sangre Vikinga y porque la taberna fue construida por Vikingos ...  ");
-                rondas = i+1;
-                ganador= v;
-                break;
-            }
+            i++;
         }
+        //verifico quien gano
+        if (limite1==0 && limite2>0){
+            ganador = persona2;
+        }
+        if(limite2==0 && limite1>0){
+            ganador= persona1;
+        }
+        if(limite2==0 && limite1==0 ){
+            if(persona1 instanceof Vikingo)
+                System.out.println("\033[32m EMPATE ,por llevar sangre Vikinga y porque la taberna fue construida por Vikingos ...  ");
+            if(persona1 instanceof Espartano)
+                System.out.println("\033[32m EMPATE ,por llevar sangre Espartana y porque la taberna fue construida por Espartanos ...  ");
+
+            ganador= persona1;
+        }
+
         System.out.println("\033[32m Ganador "+ ganador.getNombre() + " el "+  ganador.getClass().getSimpleName() + " \u001B[0m");
-        System.out.println("Total de rondas -> "+rondas);
+        System.out.println("Total de rondas -> "+i);
         System.out.println("-----------Termina el  Combate -----------");
-
-
         return ganador;
-
     }
+}
+
