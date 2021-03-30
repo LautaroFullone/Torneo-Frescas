@@ -13,6 +13,7 @@ public abstract class Humano {
     private IOrinar orinar;
     private IHabilidadEspecial habilidadEspecial;
     protected int limite;
+    private int bebidaEnCuerpo;
 
 
     public Humano(){
@@ -27,7 +28,10 @@ public abstract class Humano {
         this.beber = beber;
         this.habilidadEspecial = habilidadEspecial;
         this.limite = new Random().nextInt(15-1)+1;
+        this.bebidaEnCuerpo=0;
     }
+
+
 
     public void habilidadEspecial() {
         habilidadEspecial.activarHabilidadEspecial(this);
@@ -38,6 +42,14 @@ public abstract class Humano {
     }
     public void orinar(){
         orinar.orinar();
+    }
+
+    public int getBebidaEnCuerpo() {
+        return bebidaEnCuerpo;
+    }
+
+    public void setBebidaEnCuerpo(int bebidaEnCuerpo) {
+        this.bebidaEnCuerpo = bebidaEnCuerpo;
     }
 
     public String getNombre() {
